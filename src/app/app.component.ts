@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavigationComponent } from './core/navigation/navigation.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'clean-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavigationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'CleanAngular';
 }
+
+//   pages/
+//  └── users/
+//      └── list/
+//          └── [id]/
+//               └── details/

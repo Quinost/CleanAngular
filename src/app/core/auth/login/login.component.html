@@ -1,0 +1,22 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <div class="icon-container">
+      <mat-icon class="large-icon" fontIcon="radio_button_unchecked"></mat-icon>
+    </div>
+    <form [formGroup]="formGroup" class="example-form">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Login</mat-label>
+        <input type="text" matInput formControlName="username" placeholder="">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" placeholder="">
+      </mat-form-field>
+    </form>
+    <span class="flex-end">
+      <button mat-raised-button (click)="onLoginClick()">Login</button>
+      <button mat-flat-button color="warn" (click)="onDefaultClick()">Default login</button>
+    </span>
+  </mat-card-content>
+</mat-card>

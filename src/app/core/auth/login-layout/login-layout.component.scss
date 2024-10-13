@@ -1,0 +1,11 @@
+.login-container {
+    display: flex;
+    justify-content: center;   /* Wycentruje poziomo */
+    align-items: center;       /* Wycentruje pionowo */
+    height: 100vh;             /* Zajmuje pełną wysokość ekranu */
+  }
+  
+  mat-card {
+    width: 400px;              /* Opcjonalnie: ustaw szerokość karty */
+    padding: 20px;             /* Opcjonalnie: dodaj padding dla zawartości */
+  }

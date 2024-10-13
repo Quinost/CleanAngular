@@ -1,0 +1,53 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+      <div class="icon-container">
+        <mat-icon class="large-icon" fontIcon="radio_button_unchecked"></mat-icon>
+      </div>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" routerLinkActive="active">
+        <div class="div-a">
+          <mat-icon fontIcon="home"></mat-icon>
+          Dashboard
+        </div>
+      </a>
+      <a mat-list-item routerLink="/users" routerLinkActive="active">
+        <div class="div-a">
+          <mat-icon fontIcon="group"></mat-icon>
+          Users
+        </div>
+      </a>
+      <a mat-list-item routerLink="/roles" routerLinkActive="active">
+        <div class="div-a">
+          <mat-icon fontIcon="manage_accounts"></mat-icon>
+          Roles
+        </div>
+      </a>
+      <a mat-list-item routerLink="/auth/login" routerLinkActive="active">
+        <div class="div-a">
+          <mat-icon fontIcon="login"></mat-icon>
+          Login
+        </div>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content style="background-color: #F5F5F5">
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span>Clean</span>
+    </mat-toolbar>
+    <div class="margin-10">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
