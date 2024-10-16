@@ -6,14 +6,20 @@ import { LoginLayoutComponent } from './core/auth/login-layout/login-layout.comp
 import { LoginComponent } from './core/auth/login/login.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { AuthGuard } from './core/auth/auth.guard';
+import { NotFoundComponent } from './pages/404/404.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'dashboard',
+  },
     {
       path: '',
       component: NavigationComponent,
       canActivate: [AuthGuard],
       children: [
-        { path: '', component: DashboardComponent },
+        { path: 'dashboard', component: DashboardComponent },
         { path: 'users', component: UserListComponent },
         { path: 'roles', component: RoleListComponent }
       ]
@@ -25,5 +31,5 @@ export const routes: Routes = [
         { path: 'login', component: LoginComponent }
       ]
     },
-    { path: '**', redirectTo: 'auth/login' }
+    { path: '**', component: NotFoundComponent }
   ];

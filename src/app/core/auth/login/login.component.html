@@ -15,7 +15,10 @@
       </mat-form-field>
     </form>
     <span class="flex-end">
-      <button mat-raised-button (click)="onLoginClick()">Login</button>
+      <button mat-raised-button (click)="onLoginClick()">
+        <mat-icon fontIcon="logout"></mat-icon>
+        Login
+      </button>
       <button mat-flat-button color="warn" (click)="onDefaultClick()">Default login</button>
     </span>
   </mat-card-content>

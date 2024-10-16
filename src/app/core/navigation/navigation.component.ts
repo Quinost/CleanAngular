@@ -11,6 +11,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { MatCardModule } from '@angular/material/card';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'clean-navigation',
@@ -33,9 +34,17 @@ import { MatCardModule } from '@angular/material/card';
 export class NavigationComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
+  isDarkTheme: boolean = false;
+
+  constructor(private authService: AuthService) { }
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

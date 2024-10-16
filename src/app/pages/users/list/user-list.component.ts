@@ -1,28 +1,45 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
-import { UserListDataSource, UserListItem } from './user-list-datasource';
+import { UserList } from '../../../core/services/users/users';
+import { UsersService } from '../../../core/services/users/users.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'clean-user-list',
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule]
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatButtonModule
+  ]
 })
 export class UserListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<UserListItem>;
-  dataSource = new UserListDataSource();
-
+  @ViewChild(MatTable) table!: MatTable<UserList>;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'role'];
+  columnsList = ['id', 'username', 'isActive'];
+
+  columns = new FormControl('');
+
+  constructor(private userService: UsersService) {}
+
+  dataSource = computed(() => this.userService.getUsersSignal());
+
+  totalItems = computed(() => this.userService.getUsersSignal().length);
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    this.userService.loadList("", 1, 15);
   }
 }

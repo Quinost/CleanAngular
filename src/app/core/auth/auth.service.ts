@@ -9,7 +9,7 @@ import { LoginRequest, TokenResult } from "./auth";
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/auth/login`; // URL do endpointu logowania
+  private apiUrl = `${environment.apiUrl}/auth`; // URL do endpointu logowania
   private tokenKey = 'authToken';
   private expirationKey = 'tokenExpiration';
   isLoggedIn$ = new BehaviorSubject<boolean>(this.isAuthenticated()); // Informacja o stanie zalogowania
@@ -18,9 +18,9 @@ export class AuthService {
 
   login(username: string, password: string): void {
     const credentials = <LoginRequest>{ username, password };
-    this.http.post<any>(this.apiUrl, credentials).subscribe({
+    this.http.post<any>(this.apiUrl + "/login", credentials).subscribe({
       next: (response : any) => {
-        this.storeToken(response.value.accessToken);
+        this.storeToken(response.value.accessToken, new Date(response.value.expirationDateUTC));
         this.isLoggedIn$.next(true);
         this.router.navigate(['/']);
       },
@@ -30,9 +30,9 @@ export class AuthService {
     });
   }
 
-  private storeToken(token: string): void {
+  private storeToken(token: string, dateUTC: Date): void {
     localStorage.setItem(this.tokenKey, token);
-    //localStorage.setItem(this.expirationKey, expiration);
+    localStorage.setItem(this.expirationKey, dateUTC.toISOString());
   }
 
   getToken(): string | null {
@@ -45,8 +45,6 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = this.getToken();
-    return !!token;
-
     const expiration = this.getTokenExpiration();
     if (token && expiration) {
       return new Date() < new Date(expiration);
@@ -55,9 +53,13 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.expirationKey);
-    this.isLoggedIn$.next(false);
-    this.router.navigate(['/login']);
+    this.http.post(this.apiUrl + "/logout", {}).subscribe({
+      complete: () => {
+        localStorage.removeItem(this.tokenKey);
+        localStorage.removeItem(this.expirationKey);
+        this.isLoggedIn$.next(false);
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }

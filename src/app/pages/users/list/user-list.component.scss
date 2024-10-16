@@ -1,3 +1,11 @@
 .full-width-table {
   width: 100%;
 }
+
+.table-toolbar {
+  margin-top: 35px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

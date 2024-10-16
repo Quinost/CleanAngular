@@ -5,5 +5,5 @@ export type LoginRequest = {
 
 export type TokenResult = {
     accessToken: string;
-    //expirationDate: Date;
+    expirationDateUTC: Date;
 }
