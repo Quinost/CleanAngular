@@ -3,11 +3,10 @@
 }
 
 .sidenav {
-  width: 200px;
-}
-
-.sidenav .mat-toolbar {
-  background: inherit;
+  width: 210px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  border-top-right-radius: initial;
 }
 
 .mat-toolbar.mat-primary {
@@ -27,21 +26,16 @@
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  margin-top: 10px;
 
   mat-icon {
     display: contents;
     font-size: 64px;
-    color: black;
   }
 }
 
 .margin-10 {
-  margin: 10px;
-}
-
-.active {
-  font-weight: bold;
-  color: blue; /* Change color as needed */
+  padding: 20px;
 }
 
 .toolbar-span {
@@ -49,4 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  span > * {
+    margin-left: 10px;
+  }
 }

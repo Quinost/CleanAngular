@@ -31,5 +31,9 @@ export const routes: Routes = [
         { path: 'login', component: LoginComponent }
       ]
     },
-    { path: '**', component: NotFoundComponent }
+    { 
+      path: '**',
+      component: NotFoundComponent,
+      canActivate: [AuthGuard], 
+    }
   ];

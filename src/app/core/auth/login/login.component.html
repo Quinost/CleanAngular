@@ -1,7 +1,7 @@
 <mat-card appearance="outlined">
   <mat-card-content>
     <div class="icon-container">
-      <mat-icon class="large-icon" fontIcon="radio_button_unchecked"></mat-icon>
+      <mat-icon class="large-icon">radio_button_unchecked</mat-icon>
     </div>
     <form [formGroup]="formGroup" class="example-form">
       <mat-form-field class="example-full-width" appearance="outline">
@@ -16,7 +16,7 @@
     </form>
     <span class="flex-end">
       <button mat-raised-button (click)="onLoginClick()">
-        <mat-icon fontIcon="logout"></mat-icon>
+        <mat-icon>login</mat-icon>
         Login
       </button>
       <button mat-flat-button color="warn" (click)="onDefaultClick()">Default login</button>

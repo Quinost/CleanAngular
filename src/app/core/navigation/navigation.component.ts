@@ -12,6 +12,8 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { MatCardModule } from '@angular/material/card';
 import { AuthService } from '../auth/auth.service';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'clean-navigation',
@@ -28,7 +30,9 @@ import { AuthService } from '../auth/auth.service';
     AsyncPipe,
     RouterOutlet,
     RouterModule,
-    DashboardComponent
+    DashboardComponent,
+    SidenavComponent,
+    ThemeToggleComponent
   ]
 })
 export class NavigationComponent {

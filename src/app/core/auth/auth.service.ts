@@ -39,7 +39,7 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
-  getTokenExpiration() : any {
+  getTokenExpiration(): string | null {
     return localStorage.getItem(this.expirationKey);
   }
 
@@ -58,7 +58,7 @@ export class AuthService {
         localStorage.removeItem(this.tokenKey);
         localStorage.removeItem(this.expirationKey);
         this.isLoggedIn$.next(false);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
       }
     });
   }

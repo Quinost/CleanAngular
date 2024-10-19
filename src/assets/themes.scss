@@ -1,15 +1,59 @@
 @use '@angular/material' as mat;
 
-// Light theme configuration
 $light-theme: mat.define-theme((color: (theme-type: light,
-                primary: mat.$azure-palette,
-                tertiary: mat.$blue-palette,
-            ),
-        ));
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      ),
+    ));
 
-// Dark theme configuration
 $dark-theme: mat.define-theme((color: (theme-type: dark,
-                primary: mat.$azure-palette,
-                tertiary: mat.$blue-palette,
-            ),
-        ));
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      ),
+    ));
+
+
+@mixin theme($theme) {
+
+  $theme-type: mat.get-theme-type($theme);
+
+  @if $theme-type =='dark' {
+    --mat-sidenav-content-background-color: #{map-get(map-get(mat.$azure-palette, neutral), 10)};
+
+    body {
+      ::-webkit-scrollbar-track {
+        background-color: #{map-get(map-get(mat.$azure-palette, neutral), 10)};
+      }
+    }
+  }
+
+  @else {
+    --mat-sidenav-content-background-color: #{map-get(map-get(mat.$azure-palette, neutral), 95)};
+
+    body {
+      ::-webkit-scrollbar-track {
+        background-color: #{map-get(map-get(mat.$azure-palette, neutral), 95)};
+      }
+    }
+  }
+}
+
+
+body {
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #{map-get(map-get(mat.$azure-palette, neutral-variant),50)};
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #{map-get(map-get(mat.$azure-palette, neutral-variant), 40)};
+  }
+}

@@ -1,25 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
+@use "assets/themes.scss";
 
 @include mat.core();
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
-$angular-material-3-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
-
 :root {
-  @include mat.all-component-themes($angular-material-3-theme);
+  body.dark-theme {
+    @include mat.all-component-themes(themes.$dark-theme);
+    @include themes.theme(themes.$dark-theme);
+  }
+
+  body.light-theme {
+    @include mat.all-component-themes(themes.$light-theme);
+    @include themes.theme(themes.$light-theme);
+  }
 }
