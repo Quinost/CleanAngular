@@ -3,18 +3,19 @@
 @use "assets/themes.scss";
 
 @include mat.core();
+@include mat.all-component-typographies();
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 :root {
   body.dark-theme {
-    @include mat.all-component-themes(themes.$dark-theme);
+    @include mat.all-component-colors(themes.$dark-theme); 
     @include themes.theme(themes.$dark-theme);
   }
 
   body.light-theme {
-    @include mat.all-component-themes(themes.$light-theme);
+    @include mat.all-component-colors(themes.$light-theme);
     @include themes.theme(themes.$light-theme);
   }
 }
