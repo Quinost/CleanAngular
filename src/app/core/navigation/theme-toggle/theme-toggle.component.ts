@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ThemeToggleService } from './theme-toggle.service';
+import { ThemeToggleService } from '../../services/theme-toggle/theme-toggle.service';
 
 @Component({
-  selector: 'app-theme-toggle',
+  selector: 'clean-theme-toggle',
   standalone: true,
   templateUrl: './theme-toggle.component.html',
   styleUrls: ['./theme-toggle.component.scss'],

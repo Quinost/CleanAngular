@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './core/navigation/navigation.component';
-import { ThemeToggleService } from './core/navigation/theme-toggle/theme-toggle.service';
+import { ThemeToggleService } from './core/services/theme-toggle/theme-toggle.service';
 
 @Component({
   selector: 'clean-root',

@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'clean-user-list',
@@ -33,7 +34,7 @@ export class UserListComponent implements AfterViewInit {
 
   columns = new FormControl('');
 
-  constructor(private userService: UsersService) {}
+  constructor(private userService: UsersService, private router: Router) {}
 
   dataSource = computed(() => this.userService.getUsersSignal());
 
@@ -41,5 +42,9 @@ export class UserListComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.userService.loadList("", 1, 15);
+  }
+
+  onAddNew(): void {
+    this.router.navigate(['users/new']);
   }
 }

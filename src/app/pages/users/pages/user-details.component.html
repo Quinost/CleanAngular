@@ -1,0 +1,12 @@
+<span class="span-container">
+  <h1>User: New</h1>
+  <button mat-flat-button type="submit" (click)="onSave()">Save</button>
+</span>
+
+<form [formGroup]="formGroup">
+  <label for="username">Username:</label>
+  <mat-form-field appearance="outline">
+    <input id="username" type="text" matInput formControlName="username">
+    <mat-error clean-error controlName="username" />
+  </mat-form-field>
+</form>

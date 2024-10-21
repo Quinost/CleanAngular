@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { CleanErrorComponent } from '../../components/error-footer/error-helper.component';
 
 @Component({
   selector: 'clean-login',
@@ -19,6 +19,7 @@ import { AuthService } from '../auth.service';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
+    CleanErrorComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -26,7 +27,10 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   formGroup : FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router){
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+
+  constructor(){
     this.formGroup = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -42,6 +46,5 @@ export class LoginComponent {
 
   onLoginClick(): void {
     this.authService.login(this.formGroup.value.username, this.formGroup.value.password);
-    //this.router.navigate(["/"]);
   }
 }

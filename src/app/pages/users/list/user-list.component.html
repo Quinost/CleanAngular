@@ -1,5 +1,5 @@
 <span class="table-toolbar">
-  <button mat-flat-button>Add</button>
+  <button mat-flat-button (click)="onAddNew()">Add</button>
   <mat-form-field appearance="outline">
     <mat-label>Display columns</mat-label>
     <mat-select [formControl]="columns" multiple>
@@ -21,8 +21,8 @@
   <table mat-table class="full-width-table" matSort [dataSource]="dataSource()">
     <!-- Id Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="first-column">Id</th>
+      <td mat-cell *matCellDef="let row" class="id-column">{{row.id}}</td>
     </ng-container>
 
     <!-- Name Column -->

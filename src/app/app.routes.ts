@@ -7,6 +7,8 @@ import { LoginComponent } from './core/auth/login/login.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { NotFoundComponent } from './pages/404/404.component';
+import { UserNewComponent } from './pages/users/list/new/user-new.component';
+import { UserComponent } from './pages/users/users.component';
 
 export const routes: Routes = [
   {
@@ -20,7 +22,14 @@ export const routes: Routes = [
       canActivate: [AuthGuard],
       children: [
         { path: 'dashboard', component: DashboardComponent },
-        { path: 'users', component: UserListComponent },
+        {
+          path: 'users',
+          component: UserComponent,
+          children: [
+            { path : '', component: UserListComponent },
+            { path : 'new', component: UserNewComponent}
+          ]
+        },
         { path: 'roles', component: RoleListComponent }
       ]
     },

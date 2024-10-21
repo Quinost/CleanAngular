@@ -6,3 +6,8 @@ export type UserModel = {
 
 export type UserList = {
 } & UserModel
+
+export type NewUser = {
+    username: string;
+    password: string;
+}
