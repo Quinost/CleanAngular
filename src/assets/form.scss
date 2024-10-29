@@ -1,0 +1,15 @@
+.form-control {
+    label {
+        margin-right: 10px
+    }
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+
+    span > * {
+        margin-left: 10px;
+    }
+}

@@ -1,10 +1,1 @@
-.full-width-table {
-  width: 100%;
-}
-
-.table-toolbar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+@use 'assets/tables.scss';

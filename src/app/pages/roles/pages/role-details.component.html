@@ -1,0 +1,17 @@
+<span class="top-container">
+  <h1>Role: New</h1>
+  <span>
+    <button mat-stroked-button (click)="onBack()">Back</button>
+    <button mat-flat-button type="submit" (click)="onSave()">Save</button>
+  </span>
+</span>
+
+<form [formGroup]="formGroup">
+  <div class="form-control">
+    <label for="name">Name:</label>
+    <mat-form-field appearance="outline">
+      <input id="name" type="text" matInput formControlName="name">
+      <mat-error clean-error controlName="name" />
+    </mat-form-field>
+  </div>
+</form>

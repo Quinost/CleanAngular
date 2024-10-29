@@ -2,6 +2,8 @@ export type UserModel = {
     id: string;
     username: string;
     isActive: boolean;
+    roleId: string;
+    roleName: string;
 }
 
 export type UserList = {
@@ -10,4 +12,5 @@ export type UserList = {
 export type NewUser = {
     username: string;
     password: string;
+    roleId: string;
 }

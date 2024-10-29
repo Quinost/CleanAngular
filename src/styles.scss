@@ -19,3 +19,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     @include themes.theme(themes.$light-theme);
   }
 }
+
+.warn-snackbar {
+  background-color: red;
+  color: white;
+}

@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../auth.service';
-import { CleanErrorComponent } from '../../components/error-footer/error-helper.component';
+import { CleanErrorComponent } from '@core/components/error-footer/error-helper.component';
 
 @Component({
   selector: 'clean-login',
@@ -39,7 +39,7 @@ export class LoginComponent {
 
   onDefaultClick(): void {
     this.formGroup.patchValue({
-      username: 'DefaultUser',
+      username: 'AdminUser',
       password: 'securePass'
     })
   }

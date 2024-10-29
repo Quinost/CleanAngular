@@ -1,8 +1,13 @@
-import { Injectable, Signal, signal } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { inject, Injectable, Signal, signal } from '@angular/core';
+import { environment } from '@env/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NewUser, UserList, UserModel } from './users';
 import { Router } from '@angular/router';
+import { Result } from '@core/base/result';
+import { NotificationService } from '../notification/notification.service';
+import { handleResult } from '@core/base/handle-result';
+import { tap } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,15 +17,15 @@ export class UsersService {
   private users = signal<UserList[]>([])
   private user = signal<UserModel | null>(null)
 
-  constructor(private client: HttpClient, private router: Router) { }
+  client = inject(HttpClient);
+  router = inject(Router);
+  notificationService = inject(NotificationService);
 
   public get getUsersSignal(): Signal<UserList[]> { return this.users.asReadonly(); }
 
   loadById(id: string): void {
     this.client.get<UserModel>(`${this.apiUrl}/${id}`)
-      .subscribe((result: UserModel) => {
-        this.user.set(result);
-      });
+      .pipe(tap((result: UserModel) => this.user.set(result))).subscribe();
   }
 
   loadList(filter: string, pageNumber: number = 1, pageSize: number = 25): void {
@@ -30,27 +35,27 @@ export class UsersService {
       .set('pageSize', pageSize.toString());
 
     this.client.get<UserList[]>(`${this.apiUrl}`, { params })
-      .subscribe((result: UserList[]) => {
-        this.users.set(result);
-      });
+      .pipe(tap((result: UserList[]) => this.users.set(result))).subscribe();
   }
 
-  addUser(user: NewUser): void {
-    this.client.post(`${this.apiUrl}`, user)
+  add(item: NewUser): void {
+    this.client.post<Result>(`${this.apiUrl}`, item)
+      .pipe(handleResult(this.notificationService))
       .subscribe({
         next: () => {
+          this.notificationService.success('Added');
           this.router.navigate(['/users'])
         }
       });
   }
 
-  deleteUser(id: string): void {
-    this.client.delete(`${this.apiUrl}/${id}`)
+  delete(id: string): void {
+    this.client.delete<Result>(`${this.apiUrl}/${id}`)
+      .pipe(handleResult(this.notificationService))
       .subscribe({
         next: () => {
-          this.users.update((value: UserModel[]) => {
-            return value.filter(x => x.id != id);
-          })
+          this.notificationService.success('Deleted');
+          this.users.update((value: UserModel[]) => value.filter(x => x.id != id))
         }
       });
   }

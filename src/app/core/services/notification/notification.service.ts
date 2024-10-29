@@ -17,6 +17,12 @@ export class NotificationService {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: this.duration,
+      panelClass: ['warn-snackbar'],
+      data: text
     });
+  }
+
+  error(text: string): void {
+    this.success(text);
   }
 }

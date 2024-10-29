@@ -1,33 +1,45 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { environment } from "../../environments/environment";
+import { inject, Injectable, signal } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { environment } from "@env/environment";
 import { Router } from "@angular/router";
 import { LoginRequest, TokenResult } from "./auth";
+import { Result } from "@core/base/result";
+import { handleResult } from "@core/base/handle-result";
+import { NotificationService } from "@core/services/notification/notification.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/auth`; // URL do endpointu logowania
+  private apiUrl = `${environment.apiUrl}/auth`;
   private tokenKey = 'authToken';
   private expirationKey = 'tokenExpiration';
-  isLoggedIn$ = new BehaviorSubject<boolean>(this.isAuthenticated()); // Informacja o stanie zalogowania
+  isLoggedIn$ = new BehaviorSubject<boolean>(this.isAuthenticated());
 
-  constructor(private http: HttpClient, private router: Router) { }
+  client = inject(HttpClient);
+  router = inject(Router);
+  notificationService = inject(NotificationService);
+
+  publicKey = signal<string>('');
 
   login(username: string, password: string): void {
     const credentials = <LoginRequest>{ username, password };
-    this.http.post<any>(this.apiUrl + "/login", credentials).subscribe({
-      next: (response : any) => {
-        this.storeToken(response.value.accessToken, new Date(response.value.expirationDateUTC));
-        this.isLoggedIn$.next(true);
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.error('Login failed', err);
-      },
-    });
+    this.client.post<Result<TokenResult>>(this.apiUrl + "/login", credentials)
+      .pipe(
+        handleResult(this.notificationService)
+      )
+      .subscribe({
+        next: (response: Result<TokenResult>) => {
+          const value = response.value!;
+          this.storeToken(value.accessToken, new Date(value.expirationDateUTC));
+          this.isLoggedIn$.next(true);
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error('Login failed', err);
+        },
+      });
   }
 
   private storeToken(token: string, dateUTC: Date): void {
@@ -53,7 +65,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.post(this.apiUrl + "/logout", {}).subscribe({
+    this.client.post(this.apiUrl + '/logout', {}).subscribe({
       complete: () => {
         localStorage.removeItem(this.tokenKey);
         localStorage.removeItem(this.expirationKey);
@@ -61,5 +73,9 @@ export class AuthService {
         this.router.navigate(['/auth/login']);
       }
     });
+  }
+
+  getPublicKey(): Observable<string> {
+    return this.client.get(this.apiUrl + '/publickey', { responseType: 'text' });
   }
 }

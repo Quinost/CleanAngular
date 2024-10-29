@@ -37,10 +37,15 @@ export class SidenavComponent {
       path: "/users",
       icon: "group"
     },
-    // {
-    //   name: "Roles",
-    //   path: "/roles",
-    //   icon: "manage_accounts"
-    // }
+    {
+      name: "Roles",
+      path: "/roles",
+      icon: "manage_accounts"
+    },
+    {
+      name: "Public key",
+      path: "/publicKey",
+      icon: "key"
+    }
   ];
 }

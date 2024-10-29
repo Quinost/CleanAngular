@@ -1,12 +1,25 @@
-<span class="span-container">
+<span class="top-container">
   <h1>User: New</h1>
-  <button mat-flat-button type="submit" (click)="onSave()">Save</button>
+  <span>
+    <button mat-stroked-button (click)="onBack()">Back</button>
+    <button mat-flat-button type="submit" (click)="onSave()">Save</button>
+  </span>
 </span>
 
 <form [formGroup]="formGroup">
-  <label for="username">Username:</label>
-  <mat-form-field appearance="outline">
-    <input id="username" type="text" matInput formControlName="username">
-    <mat-error clean-error controlName="username" />
-  </mat-form-field>
+  <div class="form-control">
+    <label for="username">Username:</label>
+    <mat-form-field appearance="outline">
+      <input id="username" type="text" matInput formControlName="username">
+      <mat-error clean-error controlName="username" />
+    </mat-form-field>
+  </div>
+  
+  <div class="form-control">
+    <label for="password">Password:</label>
+    <mat-form-field appearance="outline">
+      <input id="password" type="text" matInput formControlName="password">
+      <mat-error clean-error controlName="password" />
+    </mat-form-field>
+  </div>
 </form>

@@ -8,7 +8,10 @@ import { NavigationComponent } from './core/navigation/navigation.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { NotFoundComponent } from './pages/404/404.component';
 import { UserNewComponent } from './pages/users/list/new/user-new.component';
-import { UserComponent } from './pages/users/users.component';
+import { UsersComponent } from './pages/users/users.component';
+import { RsaPublicKeyComponent } from './pages/rsa-public-key/rsa-public-key.component';
+import { RolesComponent } from './pages/roles/roles.component';
+import { RoleNewComponent } from './pages/roles/list/new/role-new.component';
 
 export const routes: Routes = [
   {
@@ -24,13 +27,21 @@ export const routes: Routes = [
         { path: 'dashboard', component: DashboardComponent },
         {
           path: 'users',
-          component: UserComponent,
+          component: UsersComponent,
           children: [
             { path : '', component: UserListComponent },
             { path : 'new', component: UserNewComponent}
           ]
         },
-        { path: 'roles', component: RoleListComponent }
+        { 
+          path: 'roles', 
+          component: RolesComponent,
+          children: [
+            { path : '', component: RoleListComponent },
+            { path : 'new', component: RoleNewComponent }
+          ]
+        },
+        { path: 'publicKey', component: RsaPublicKeyComponent }
       ]
     },
     {

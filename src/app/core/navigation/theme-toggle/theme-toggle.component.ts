@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ThemeToggleService } from '../../services/theme-toggle/theme-toggle.service';
+import { ThemeToggleService } from '@core/services/theme-toggle/theme-toggle.service';
 
 @Component({
   selector: 'clean-theme-toggle',

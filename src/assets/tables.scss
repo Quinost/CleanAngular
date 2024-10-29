@@ -1,0 +1,15 @@
+.full-width-table {
+    width: 100%;
+}
+
+.table-toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+mat-icon {
+    margin: auto !important;
+}

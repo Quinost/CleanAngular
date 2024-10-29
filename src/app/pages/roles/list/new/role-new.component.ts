@@ -1,15 +1,15 @@
 import { Component, inject } from "@angular/core";
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { CleanErrorComponent } from "@core/components/error-footer/error-helper.component";
-import { MatButtonModule } from "@angular/material/button";
-import { NotificationService } from "@core/services/notification/notification.service";
-import { UsersService } from "@core/services/users/users.service";
 import { Router } from "@angular/router";
+import { CleanErrorComponent } from "@core/components/error-footer/error-helper.component";
+import { NotificationService } from "@core/services/notification/notification.service";
+import { RolesService } from "@core/services/roles/roles.service";
 
 @Component({
-  selector: 'clean-user-new',
+  selector: 'clean-role-new',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -18,22 +18,19 @@ import { Router } from "@angular/router";
     MatButtonModule,
     CleanErrorComponent
   ],
-  templateUrl: '../../pages/user-details.component.html',
-  styleUrl: './user-new.component.scss'
+  templateUrl: '../../pages/role-details.component.html',
+  styleUrl: './role-new.component.scss'
 })
-export class UserNewComponent {
+export class RoleNewComponent {
   formGroup: FormGroup;
-  
   fb = inject(FormBuilder);
   notificationService = inject(NotificationService);
-  usersService = inject(UsersService);
+  rolesService = inject(RolesService);
   router = inject(Router);
 
   constructor() {
     this.formGroup = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      roleId: ['f3f533fd-41c4-44f1-a67e-8062e6d207a6']
+      name: ['', [Validators.required]],
     });
   }
 
@@ -43,10 +40,10 @@ export class UserNewComponent {
       return;
     }
 
-    this.usersService.add(this.formGroup.getRawValue());
+    this.rolesService.add(this.formGroup.getRawValue());
   }
 
   onBack(): void {
-    this.router.navigate(['/users']);
+    this.router.navigate(['/roles']);
   }
 }

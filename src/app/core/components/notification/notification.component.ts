@@ -1,6 +1,6 @@
-import { Component, inject } from "@angular/core";
+import { Component, Inject, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction, MatSnackBarRef } from "@angular/material/snack-bar";
+import { MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction, MatSnackBarRef, MAT_SNACK_BAR_DATA } from "@angular/material/snack-bar";
 
 @Component({
     selector: 'clean-notification',
@@ -15,5 +15,5 @@ import { MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction, MatSnackBarRef
     styleUrl: './notification.component.scss'
   })
   export class NotificationRefComponent {
-    snackBarRef = inject(MatSnackBarRef);
+    constructor(@Inject(MAT_SNACK_BAR_DATA) public data: string) {}
   }
